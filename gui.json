@@ -1,0 +1,80 @@
+{
+	"input_elements": [
+		{
+			"target": "chip.pipeline_type",
+			"display_element": {
+				"type": "select",
+				"label": "IP type",
+				"description": "Choose whether you are looking for transcription factors or histone marks.",
+				"choices": [
+					{
+						"value": "tf",
+						"display": "Transcription factor"
+					},
+					{
+						"value": "histone",
+						"display": "Histone mark"
+					}
+				]
+			}
+		},
+		{
+			"target": {
+				"target_ids": ["chip.pulldown_fastqs", "chip.input_fastqs"],
+				"name": "input_files",
+				"handler": "input_mapping.py"
+			},
+			"display_element": {
+				"type": "file_chooser",
+                "regex_filter": ".*.fastq.gz",
+				"label": "Sequence files:",
+				"choose_multiple": true,
+				"description": "Choose fastq-format files for both your pulldown/IP and the input/control.  Files should end with \"fastq.gz\"."
+			}	
+		},
+		{
+			"target": {
+				"target_ids": ["chip.sample_annotations"],
+				"name": "annotations_input",
+				"handler": "single_file_input_mapping.py"
+			},
+			"display_element": {
+				"type": "file_chooser",
+                "regex_filter": ".*",
+				"label": "Sample annotations:",
+				"choose_multiple": false,
+				"description": "Choose a sample annotation file.  This should have two columns, separated by a \"tab\" (tab-delimited).  The first column has the FASTQ file (e.g. \"XYZ_R1.fastq.gz\") for the pulldown/IP sample.  The second column has the FASTQ file for the control/input sample.  There should NOT be a column header."
+			}	
+		},
+		{
+			"target": {
+				"target_ids": ["chip.ref_fa", "chip.bwa_idx_tar", "chip.chrsz", "chip.blacklist", "chip.gensz"],
+				"name": "genome_choice",
+				"handler": "genome_mapper.py"
+			},
+			"display_element": {
+				"type": "select",
+				"label": "Reference genome",
+				"description": "Choose the reference genome to use for this process.",
+				"choices": [
+					{
+						"value": "hg38",
+						"display": "Human hg38"
+					},
+					{
+						"value": "mm10",
+						"display": "Mouse mm10"
+					}
+				]
+			}
+		},
+		{
+			"target":"chip.output_zip_name",
+			"display_element": {
+				"type": "text",
+				"label": "Output zip-archive name:",
+				"description": "Name the output file.  Result will be a \"zip\" archive.  If you enter \"my_output\", then the results will be \"my_output.zip\"."
+			}
+		}
+	]
+}

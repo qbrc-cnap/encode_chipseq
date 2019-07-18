@@ -1,0 +1,16 @@
+{
+    "hg38":{
+        "ref_fa":"",
+        "bwa_idx_tar":"",
+        "chrsz":"",
+        "blacklist":"",
+        "gensz":"hs"
+    },
+    "mm10":{
+        "ref_fa":"",
+        "bwa_idx_tar":"",
+        "chrsz":"",
+        "blacklist":"",
+        "gensz":"mm"
+    }
+}
