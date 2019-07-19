@@ -2,8 +2,7 @@ import argparse
 
 
 ANN = 'ann'
-IP = 'ip'
-CTRL = 'ctrl'
+FQ = 'fastq'
 
 
 def get_pairings(annotation_filepath):
@@ -18,12 +17,12 @@ def get_pairings(annotation_filepath):
     return pair_list
 
 
-def reorder_lists(all_pulldown_fq, all_input_fq, pair_list):
+def reorder_lists(all_fq, pair_list):
     new_pulldown_fq = []
     new_input_fq = []
     for pairing in pair_list:
         x,y = pairing
-        if (x in all_pulldown_fq) and (y in all_input_fq):
+        if x in all_fq:
             new_pulldown_fq.append(x)
             new_input_fq.append(y)
     return new_pulldown_fq, new_input_fq
@@ -32,8 +31,7 @@ def reorder_lists(all_pulldown_fq, all_input_fq, pair_list):
 def get_commandline_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-a', required=True, dest=ANN)
-    parser.add_argument('-i', required=True, dest=IP, nargs='+')
-    parser.add_argument('-c', required=True, dest=CTRL, nargs='+')
+    parser.add_argument('-i', required=True, dest=FQ, nargs='+')
     args = parser.parse_args()
     return vars(args)
 
@@ -42,8 +40,7 @@ if __name__ == '__main__':
     arg_dict = get_commandline_args()
     pair_list = get_pairings(arg_dict[ANN])
     pulldown_fq, input_fq = reorder_lists(
-        arg_dict[IP],
-        arg_dict[CTRL],
+        arg_dict[FQ],
         pair_list
     )
     with open('ip_fq.txt', 'w') as fout:

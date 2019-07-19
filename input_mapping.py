@@ -24,37 +24,11 @@ def map_inputs(user, all_data, data_name, id_list):
     matches the order in gui.json 
 
     '''
+    # the primary keys of the fastq files
     unmapped_data = all_data[data_name]
-
-    r1_suffix = '_R1.fastq.gz'
-    r2_suffix = '_R2.fastq.gz'
-    r1_path_list = []
-    r2_path_list = []
+    fastq_paths = []
     for pk in unmapped_data:
         r = Resource.objects.get(pk=pk)
-        if (r.owner == user) or (user.is_staff):
-            if r.path.endswith(r1_suffix):
-                r1_path_list.append(r.path)
-            elif r.path.endswith(r2_suffix):
-                r2_path_list.append(r.path)
-            else:
-                print('Skipping %s' % r.path)
-        else:
-            raise Exception('The user %s is not the owner of Resource with primary key %s.' % (user, pk))
-    
-    # now we have a list of files that had the correct naming scheme.
-    # Need to check for pairing:
-    r1_samples = [os.path.basename(x)[:-len(r1_suffix)] for x in r1_path_list]
-    r2_samples = [os.path.basename(x)[:-len(r2_suffix)] for x in r2_path_list]
-    r1_dict = dict(zip(r1_samples, r1_path_list))
-    r2_dict = dict(zip(r2_samples, r2_path_list))
-
-    sample_intersection = set(r1_samples).intersection(r2_samples)
-
-    # now have the samples that have both R1 and R2.  Create the final map
-    final_r1_list = []
-    final_r2_list = []
-    for s in sample_intersection:
-        final_r1_list.append(r1_dict[s])
-        final_r2_list.append(r2_dict[s])
-    return {id_list[0]:final_r1_list, id_list[1]:final_r2_list}
+        if r.owner == user):
+            fastq_paths.append(r.path)
+    return {id_list[0]:fastq_paths}

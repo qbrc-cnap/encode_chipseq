@@ -13,15 +13,13 @@ workflow chip {
 	# Extra pre-processing to make it easier for CNAP integration without touching the remainder
 	# of the process
 
-	Array[File] pulldown_fastqs
-	Array[File] input_fastqs
+	Array[File] all_fastqs
 	File sample_annotations
 	String output_zip_name = "report.zip"
 
 	call organize_inputs {
 		input:
-			pulldown_fastqs = pulldown_fastqs,
-			input_fastqs = input_fastqs,
+			all_fastqs = all_fastqs,
 			sample_annotations = sample_annotations
 	}
 	Array[File] reordered_pulldown_fastqs = organize_inputs.ordered_pulldowns
@@ -1198,15 +1196,13 @@ task organize_inputs {
 
 	# This task reads the annotation file and properly "aligns" the 
 	# IP and input FASTQ
-	Array[String] pulldown_fastqs
-	Array[String] input_fastqs
+	Array[String] all_fastqs
 	File sample_annotations
 
 	command {
 		python3 $(which organize_inputs.py) \
 			-a ${sample_annotations}
-			-i ${sep=" " pulldown_fastqs} \
-			-c ${sep=" " input_fastqs}
+			-i ${sep=" " all_fastqs}
 	}
 
 	output {

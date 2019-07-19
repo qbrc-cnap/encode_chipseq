@@ -5,8 +5,7 @@
     "chip.chrsz": "File",
     "chip.blacklist": "File",
     "chip.gensz": "String",
-    "chip.pulldown_fastqs": "Array[File]",
-    "chip.input_fastqs" : "Array[File]",
+    "chip.all_fastqs": "Array[File]",
     "chip.sample_annotations": "File",
     "chip.output_zip_name": "String"
 }

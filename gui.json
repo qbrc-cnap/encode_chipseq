@@ -20,7 +20,7 @@
 		},
 		{
 			"target": {
-				"target_ids": ["chip.pulldown_fastqs", "chip.input_fastqs"],
+				"target_ids": ["chip.all_fastqs"],
 				"name": "input_files",
 				"handler": "input_mapping.py"
 			},
