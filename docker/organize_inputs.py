@@ -19,13 +19,14 @@ def get_pairings(annotation_filepath):
 
 def reorder_lists(all_fq, pair_list):
     base_fq = [os.path.basename(x) for x in all_fq]
+    mapping = dict(zip(base_fq, all_fq))
     new_pulldown_fq = []
     new_input_fq = []
     for pairing in pair_list:
         x,y = pairing
-        if x in base_fq:
-            new_pulldown_fq.append(x)
-            new_input_fq.append(y)
+        if (x in mapping.keys()) and (y in mapping.keys()):
+            new_pulldown_fq.append(mapping[x])
+            new_input_fq.append(mapping[y])
     return new_pulldown_fq, new_input_fq
 
 
