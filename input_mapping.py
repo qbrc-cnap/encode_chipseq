@@ -29,6 +29,6 @@ def map_inputs(user, all_data, data_name, id_list):
     fastq_paths = []
     for pk in unmapped_data:
         r = Resource.objects.get(pk=pk)
-        if r.owner == user):
+        if r.owner == user:
             fastq_paths.append(r.path)
     return {id_list[0]:fastq_paths}
