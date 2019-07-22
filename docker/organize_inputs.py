@@ -1,5 +1,5 @@
 import argparse
-
+import os
 
 ANN = 'ann'
 FQ = 'fastq'
@@ -18,11 +18,12 @@ def get_pairings(annotation_filepath):
 
 
 def reorder_lists(all_fq, pair_list):
+    base_fq = [os.path.basename(x) for x in all_fq]
     new_pulldown_fq = []
     new_input_fq = []
     for pairing in pair_list:
         x,y = pairing
-        if x in all_fq:
+        if x in base_fq:
             new_pulldown_fq.append(x)
             new_input_fq.append(y)
     return new_pulldown_fq, new_input_fq
