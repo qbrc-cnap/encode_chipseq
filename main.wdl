@@ -1201,7 +1201,7 @@ task organize_inputs {
 
 	command {
 		python3 $(which organize_inputs.py) \
-			-a ${sample_annotations}
+			-a ${sample_annotations} \
 			-i ${sep=" " all_fastqs}
 	}
 
