@@ -34,7 +34,7 @@ workflow chip {
 	String description = 'No description'
 
 	# endedness for input data
-	Boolean? paired_end				# to define endedness for all replciates
+	Boolean paired_end = false				# to define endedness for all replciates
 									#	if defined, this will override individual endedness below
 	Array[Boolean] paired_ends = []	# to define endedness for individual replicate
 	Boolean? ctl_paired_end
@@ -340,8 +340,7 @@ workflow chip {
 	scatter(i in range(num_rep)) {
 		# to override endedness definition for individual replicate
 		# 	paired_end will override paired_ends[i]
-		Boolean? paired_end_ = if !defined(paired_end) && i<length(paired_ends) then paired_ends[i]
-			else paired_end
+		Boolean paired_end_ = false
 		Boolean has_input_of_merge_fastq = i<length(fastqs_R1) && length(fastqs_R1[i])>0
 		Boolean has_output_of_merge_fastq = i<length(merged_fastqs_R1) &&
 			defined(merged_fastqs_R1[i])
