@@ -69,6 +69,15 @@
 			}
 		},
 		{
+			"target":"chip.idr_thresh",
+			"display_element":{
+				"type":"numeric",
+				"label": "IDR threshold",
+				"description": "Choose a threshold for IDR (default 0.05)",
+				"default_value": 0.05
+			}
+		},
+		{
 			"target":"chip.output_zip_name",
 			"display_element": {
 				"type": "text",

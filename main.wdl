@@ -100,7 +100,7 @@ workflow chip {
 	### task-specific variables but defined in workflow level (limit of WDL)
 	Int macs2_cap_num_peak = 500000	# cap number of raw peaks called from MACS2
 	Float pval_thresh = 0.01		# p.value threshold
-	Float idr_thresh = 0.05			# IDR threshold
+	Float idr_thresh			# IDR threshold
 	Int spp_cap_num_peak = 300000	# cap number of raw peaks called from SPP
 
 	### resources
