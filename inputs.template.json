@@ -8,6 +8,6 @@
     "chip.all_fastqs": "Array[File]",
     "chip.sample_annotations": "File",
     "chip.output_zip_name": "String",
-    "chip.idr_thres": "Float"
+    "chip.idr_thresh": "Float"
 }
 
