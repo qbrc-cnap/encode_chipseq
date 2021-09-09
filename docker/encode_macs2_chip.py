@@ -11,6 +11,18 @@ from encode_common_genomic import peak_to_bigbed, peak_to_hammock
 from encode_blacklist_filter import blacklist_filter
 from encode_frip import frip_shifted
 
+def fix_bed(f):
+    names = ['chrom','start','end','peakname','score','strand','score','pval','qval', 'summit']
+    df = pd.read_table(f, names=names)
+    offset = 2**31
+    def edit_offset(x):
+        if x < 0:
+            return x + offset
+        return x
+
+    df['summit'] = df['summit'].apply(edit_offset)
+    df.to_csv(f, sep='\t', header=False, index=False)
+
 def parse_arguments():
     parser = argparse.ArgumentParser(prog='ENCODE DCC MACS2 callpeak',
                                         description='')
@@ -98,7 +110,10 @@ def macs2(ta, ctl_ta, chrsz, gensz, pval_thresh, shift, fraglen, cap_num_peak,
         npeak)
     run_shell_cmd(cmd2)
     rm_f(npeak_tmp)
-    
+
+    # fix any negative values:
+    fix_bed(npeak)
+
     # remove temporary files
     temp_files.append("{}_*".format(prefix))
     rm_f(temp_files)

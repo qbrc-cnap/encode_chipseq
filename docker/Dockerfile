@@ -66,8 +66,11 @@ RUN git clone --branch v1.0.0 --single-branch https://github.com/scipy/scipy && 
     cd scipy && python setup.py install && python3 setup.py install && cd ../ && rm -rf scipy*
 
 # Install matplotlib 1.5.1 (python2/3)
-RUN git clone --branch v1.5.1 --single-branch https://github.com/matplotlib/matplotlib && \
-    cd matplotlib && python setup.py install && python3 setup.py install && cd ../ && rm -rf matplotlib*
+#RUN git clone --branch v1.5.1 --single-branch https://github.com/matplotlib/matplotlib && \
+#    cd matplotlib && python setup.py install && python3 setup.py install && cd ../ && rm -rf matplotlib*
+#RUN git clone --branch v2.2.x --single-branch https://github.com/matplotlib/matplotlib && \
+#    cd matplotlib && python setup.py install && python3 setup.py install && cd ../ && rm -rf matplotlib*
+RUN pip install --no-cache-dir matplotlib==1.5.1
 
 # Install MACS2 2.1.1.20160309 (python2)
 RUN pip install --no-cache-dir --no-dependencies macs2==2.1.1.20160309
@@ -82,7 +85,7 @@ RUN git clone --branch 1.2 --single-branch https://github.com/samtools/samtools.
     cd samtools && make && make install && cd ../ && rm -rf samtools* htslib*
 
 # Install bedtools 2.26.0
-RUN git clone --branch v2.26.0 --single-branch https://github.com/arq5x/bedtools2.git && \
+RUN git clone --branch v2.28.0 --single-branch https://github.com/arq5x/bedtools2.git && \
     cd bedtools2 && make && make install && cd ../ && rm -rf bedtools2*
 
 # Install Picard 2.10.6
@@ -143,6 +146,10 @@ ENV PYTHONNOUSERSITE=True
 RUN mkdir -p chip-seq-pipeline/src
 ADD *.py chip-seq-pipeline/src/
 ENV PATH="/software/chip-seq-pipeline:/software/chip-seq-pipeline/src:${PATH}"
+
+RUN pip install pandas==0.20.0
+RUN pip3 install matplotlib==2.0.1
+
 
 # make some temporary directories
 RUN for i in $(seq 0 9); do mkdir -p /mnt/ext_$i; done
