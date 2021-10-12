@@ -72,4 +72,3 @@ task samtoolsRmdup {
         preemptible: 0
     }
 }
-
