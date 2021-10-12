@@ -10,6 +10,7 @@ from encode_common import *
 from encode_common_genomic import peak_to_bigbed, peak_to_hammock
 from encode_blacklist_filter import blacklist_filter
 from encode_frip import frip_shifted
+import pandas as pd
 
 def fix_bed(f):
     names = ['chrom','start','end','peakname','score','strand','score','pval','qval', 'summit']

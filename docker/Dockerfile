@@ -103,6 +103,7 @@ RUN echo "r <- getOption('repos'); r['CRAN'] <- 'http://cran.r-project.org'; opt
     Rscript -e "source('http://bioconductor.org/biocLite.R'); biocLite('Rsamtools')"
 
 # Install R package spp 1.13 (required for phantompeakqualtools)
+RUN Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/caTools/caTools_1.17.1.tar.gz')"
 RUN wget https://github.com/hms-dbmi/spp/archive/1.13.tar.gz && Rscript -e "install.packages('./1.13.tar.gz')" && rm -f 1.13.tar.gz
 
 # Install phantompeakqualtools 1.2
